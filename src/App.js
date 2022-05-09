@@ -11,7 +11,10 @@ function App() {
   };
 
   const deleteWorkout = (workout) => {
-    console.log("deleteWorkout:", workout);
+    const remainingWorkouts = workouts.filter(
+      (workoutMenu) => workoutMenu !== workout
+    );
+    setWorkouts(remainingWorkouts);
   };
 
   const completeWorkout = (workout) => {
