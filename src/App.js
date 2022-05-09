@@ -18,7 +18,11 @@ function App() {
   };
 
   const completeWorkout = (workout) => {
-    console.log("completeWorkout:", workout);
+    const completedWorkouts = workouts.map((workoutMenu) => {
+      if (workout === workoutMenu) workoutMenu.done = true;
+      return workoutMenu;
+    });
+    setWorkouts(completedWorkouts);
   };
 
   return (
