@@ -2,6 +2,7 @@ import { useState } from "react";
 import { initialWorkouts, generateWorkout } from "./Workouts.js";
 import "./App.css";
 import WorkoutItem from "./WorkoutItem";
+import AddNewWorkout from "./AddNewWorkout";
 
 function App() {
   const [workouts, setWorkouts] = useState(initialWorkouts);
@@ -40,7 +41,7 @@ function App() {
   return (
     <div className="App">
       <h1>🏋️‍♀️Workout Generator</h1>
-      <button onClick={addNewWorkout}>Add New Workout</button>
+      <AddNewWorkout addNewWorkout={addNewWorkout} />
       <label htmlFor="checkbox"> Hide Finished Workout</label>
       <input
         type="checkbox"
