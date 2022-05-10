@@ -3,6 +3,7 @@ import { initialWorkouts, generateWorkout } from "./Workouts.js";
 import "./App.css";
 import WorkoutItem from "./WorkoutItem";
 import AddNewWorkout from "./AddNewWorkout";
+import Checkbox from "./Checkbox";
 
 function App() {
   const [workouts, setWorkouts] = useState(initialWorkouts);
@@ -42,12 +43,9 @@ function App() {
     <div className="App">
       <h1>🏋️‍♀️Workout Generator</h1>
       <AddNewWorkout addNewWorkout={addNewWorkout} />
-      <label htmlFor="checkbox"> Hide Finished Workout</label>
-      <input
-        type="checkbox"
-        id="checkbox"
-        checked={hideDoneWorkouts}
-        onChange={() => toggleDoneWorkouts()}
+      <Checkbox
+        hideDoneWorkouts={hideDoneWorkouts}
+        toggleDoneWorkouts={toggleDoneWorkouts}
       />
       <ul>
         {handleWorkouts().map((workout, index) => (
