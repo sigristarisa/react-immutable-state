@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { initialWorkouts, generateWorkout } from "./Workouts.js";
 import "./App.css";
+import WorkoutItem from "./WorkoutItem";
 
 function App() {
   const [workouts, setWorkouts] = useState(initialWorkouts);
+  const [hideDoneWorkouts, setHideDoneWorkouts] = useState(false);
 
   const addNewWorkout = () => {
     const newWorkout = generateWorkout();
@@ -25,26 +27,35 @@ function App() {
     setWorkouts(completedWorkouts);
   };
 
+  const toggleDoneWorkouts = () => setHideDoneWorkouts(!hideDoneWorkouts);
+
+  const handleWorkouts = () => {
+    if (hideDoneWorkouts) {
+      const doneWorkouts = workouts.filter((workout) => workout.done);
+      return doneWorkouts;
+    }
+    return workouts;
+  };
+
   return (
     <div className="App">
       <h1>🏋️‍♀️Workout Generator</h1>
       <button onClick={addNewWorkout}>Add New Workout</button>
+      <label htmlFor="checkbox"> Hide Finished Workout</label>
+      <input
+        type="checkbox"
+        id="checkbox"
+        checked={hideDoneWorkouts}
+        onChange={() => toggleDoneWorkouts()}
+      />
       <ul>
-        {workouts.map((workout, index) => (
-          <li key={index}>
-            <p>
-              {workout.sets}x sets of{" "}
-              <strong>
-                {workout.reps}x{workout.exercise}
-              </strong>{" "}
-              with {workout.rest} seconds rest
-            </p>
-            {!workout.done && (
-              <button onClick={(e) => completeWorkout(workout)}>Done</button>
-            )}
-            {workout.done && <p>✅</p>}
-            <button onClick={(e) => deleteWorkout(workout)}>Delete</button>
-          </li>
+        {handleWorkouts().map((workout, index) => (
+          <WorkoutItem
+            workout={workout}
+            index={index}
+            completeWorkout={completeWorkout}
+            deleteWorkout={deleteWorkout}
+          />
         ))}
       </ul>
     </div>
